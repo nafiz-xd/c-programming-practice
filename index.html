@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C Programming Practice — Terminal Hub</title>
+<meta name="description" content="Practice C programming topic by topic — Bangla explanations, runnable examples and a progress checklist.">
+<style>
+:root{--bg:#050807;--panel:#0a0f0c;--panel2:#0d1510;--line:#1d2f22;--green:#33ff7a;--green2:#8affb0;--dim:#5f7a66;--amber:#ffcf5c;--text:#d6ffe0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;line-height:1.6;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(51,255,122,.025) 0 1px,transparent 1px 3px);pointer-events:none;z-index:50}
+a{color:var(--green)}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(5,8,7,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1080px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;color:#fff}.logo b{color:var(--green)}
+.nav{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem}.nav a{color:var(--dim);text-decoration:none}.nav a:hover{color:var(--green)}
+.hero{max-width:1080px;margin:auto;padding:56px 18px 28px}
+.prompt{color:var(--dim);font-size:.9rem}.prompt span{color:var(--green)}
+h1{font-size:clamp(1.9rem,6vw,3.4rem);line-height:1.1;color:#fff;margin:10px 0;min-height:1.2em}
+#typed{color:var(--green)}
+.cursor{display:inline-block;width:.62em;height:1em;background:var(--green);vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p{max-width:720px;color:#a9c9b2}
+.hero-btns{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--green);color:#021207;border:0;padding:11px 18px;font:inherit;font-weight:800;cursor:pointer;border-radius:4px;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
+.terminal{margin:26px auto 0;max-width:1080px;padding:0 18px}
+.term-box{background:#020403;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 0 40px rgba(51,255,122,.08)}
+.term-head{background:var(--panel2);padding:9px 14px;display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line)}
+.dot{width:11px;height:11px;border-radius:50%}.r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
+.term-head span{margin-left:8px;color:var(--dim);font-size:.82rem}
+.term-body{padding:16px;font-size:.88rem;white-space:pre-wrap;color:var(--green2)}
+.progress-wrap{max-width:1080px;margin:28px auto 0;padding:0 18px}
+.progress-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+.progress-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bar{height:14px;background:#122017;border-radius:99px;overflow:hidden;margin-top:12px;border:1px solid var(--line)}
+.bar-fill{height:100%;width:0;background:repeating-linear-gradient(45deg,var(--green) 0 10px,#1fd65c 10px 20px);transition:width .6s ease}
+.chips{max-width:1080px;margin:24px auto 0;padding:0 18px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 12px;border-radius:99px;cursor:pointer;font:inherit;font-size:.84rem}
+.chip:hover,.chip.on{border-color:var(--green);color:var(--green)}
+main{max-width:1080px;margin:auto;padding:26px 18px 50px}
+.topic{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:22px;animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.topic h2{color:#fff;font-size:1.35rem}.topic h2 i{color:var(--green);font-style:normal}
+.bn{color:#bfeccc;margin:8px 0 16px;font-size:.98rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.codecard{background:#020403;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.codehead{display:flex;justify-content:space-between;align-items:center;background:var(--panel2);padding:8px 11px;gap:8px}
+.codehead b{font-size:.82rem;color:#fff;font-weight:700}
+.copy{background:transparent;border:1px solid var(--green);color:var(--green);border-radius:5px;padding:5px 10px;cursor:pointer;font:inherit;font-size:.78rem}
+.copy.done{background:var(--green);color:#021207}
+pre{padding:13px;overflow-x:auto;font-size:.82rem;line-height:1.55;color:#c8ffd6}
+.kw{color:#ff7edb}.str{color:var(--amber)}
+.check{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.check h3{font-size:.92rem;color:var(--green);margin-bottom:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:7px 9px;border-radius:6px;cursor:pointer;font-size:.9rem}
+.check label:hover{background:var(--panel2)}
+.check input{accent-color:#22c55e;width:18px;height:18px;margin-top:2px;flex:none}
+.check input:checked+span{color:var(--dim);text-decoration:line-through}
+footer{border-top:1px solid var(--line);padding:26px 18px;text-align:center;color:var(--dim);font-size:.88rem}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:var(--green);color:#021207;padding:10px 16px;border-radius:7px;font-weight:800;transition:.3s;z-index:60}
+.toast.show{transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in"><div class="logo">$ <b>c-practice</b> ~/nafiz</div><nav class="nav"><a href="#topics">Topics</a><a href="#progress">Progress</a><a href="#checklist-note">How it works</a></nav></div></header>
+
+<section class="hero">
+  <div class="prompt">nafiz@seu:~/cse$ <span>./start_practice.sh</span></div>
+  <h1><span id="typed"></span><span class="cursor"></span></h1>
+  <p>সি প্রোগ্রামিং শেখার জন্য সাজানো প্র্যাকটিস হাব — প্রতিটি টপিকে সহজ বাংলায় ব্যাখ্যা, কপি করা যায় এমন উদাহরণ কোড, আর নিজের অগ্রগতি ট্র্যাক করার চেকলিস্ট।</p>
+  <div class="hero-btns"><a class="btn" href="#topics">&gt; Start Practicing</a><a class="btn ghost" href="#progress">View Progress</a></div>
+</section>
+
+<div class="terminal"><div class="term-box"><div class="term-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span>bash — hello.c</span></div><div class="term-body">$ gcc hello.c -o hello &amp;&amp; ./hello
+Hello, World!
+Program finished with exit code 0 ✔</div></div></div>
+
+<section class="progress-wrap" id="progress"><div class="progress-card">
+  <div class="progress-top"><strong>Overall Progress</strong><span id="progressText">0 / 36 tasks • 0%</span></div>
+  <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+  <p style="color:var(--dim);font-size:.85rem;margin-top:10px" id="checklist-note">Checklist progress saves automatically in your browser (localStorage) — close the tab and come back, it stays.</p>
+  <button class="copy" id="resetBtn" style="margin-top:8px">Reset all progress</button>
+</div></section>
+
+<div class="chips" id="chips"></div>
+<main id="topics"></main>
+
+<footer>Built by Nafiz Bin Azad • C Programming Practice Hub • Learn • Code • Repeat</footer>
+<div class="toast" id="toast">Copied ✓</div>
+
+<script>
+var TOPICS=[
+{id:"variables",no:"01",title:"Variables & Data Types",bn:"ভেরিয়েবল হলো মেমোরিতে ডেটা রাখার নাম দেওয়া জায়গা। int দিয়ে পূর্ণসংখ্যা, float/double দিয়ে দশমিক সংখ্যা, char দিয়ে একটি অক্ষর রাখা হয়। ভেরিয়েবল ব্যবহারের আগে declare করতে হয় এবং নাম অর্থবহ রাখলে কোড পড়া সহজ হয়।",examples:[
+{t:"Declare & print variables",c:'#include <stdio.h>\nint main(){\n  int age = 21;\n  float cgpa = 3.75f;\n  char grade = \'A\';\n  printf("Age: %d\\n", age);\n  printf("CGPA: %.2f\\n", cgpa);\n  printf("Grade: %c\\n", grade);\n  return 0;\n}'},
+{t:"Swap two numbers",c:'#include <stdio.h>\nint main(){\n  int a = 5, b = 9, temp;\n  temp = a; a = b; b = temp;\n  printf("a=%d b=%d\\n", a, b);\n  return 0;\n}'}],
+tasks:["int, float, char দিয়ে ৩টি ভেরিয়েবল declare করে print করো","দুটি সংখ্যার যোগফল বের করার প্রোগ্রাম লেখো","Celsius থেকে Fahrenheit রূপান্তরের প্রোগ্রাম লেখো","sizeof() দিয়ে প্রতিটি data type-এর size দেখো"]},
+{id:"loops",no:"02",title:"Loops",bn:"একই কাজ বারবার করতে loop ব্যবহার হয়। for loop জানা সংখ্যক বার, while loop শর্ত সত্য থাকলে, আর do-while অন্তত একবার চলবেই। break দিয়ে loop থামানো যায়, continue দিয়ে একটি ধাপ skip করা যায়।",examples:[
+{t:"for loop — 1 to 10",c:'#include <stdio.h>\nint main(){\n  for(int i=1;i<=10;i++){\n    printf("%d ", i);\n  }\n  return 0;\n}'},
+{t:"while loop — sum 1..n",c:'#include <stdio.h>\nint main(){\n  int n=5, i=1, sum=0;\n  while(i<=n){ sum+=i; i++; }\n  printf("Sum = %d\\n", sum);\n  return 0;\n}'},
+{t:"Multiplication table",c:'#include <stdio.h>\nint main(){\n  int n=7;\n  for(int i=1;i<=10;i++)\n    printf("%d x %d = %d\\n", n, i, n*i);\n  return 0;\n}'}],
+tasks:["for loop দিয়ে 1–100 পর্যন্ত জোড় সংখ্যা print করো","একটি সংখ্যার factorial বের করো","Nested loop দিয়ে * পিরামিড বানাও","while loop দিয়ে সংখ্যার digit গুলোর যোগফল বের করো"]},
+{id:"functions",no:"03",title:"Functions",bn:"Function হলো পুনরায় ব্যবহারযোগ্য কোডের ব্লক। Parameter দিয়ে ভেতরে ডেটা পাঠানো যায়, return দিয়ে ফলাফল ফেরত আসে। বড় প্রোগ্রামকে ছোট ছোট function-এ ভাগ করলে কোড পরিষ্কার ও debug করা সহজ হয়।",examples:[
+{t:"Function with return",c:'#include <stdio.h>\nint add(int a, int b){\n  return a + b;\n}\nint main(){\n  printf("Sum = %d\\n", add(4, 6));\n  return 0;\n}'},
+{t:"Check even or odd",c:'#include <stdio.h>\nvoid check(int n){\n  if(n%2==0) printf("Even\\n");\n  else printf("Odd\\n");\n}\nint main(){ check(7); return 0; }'}],
+tasks:["দুটি সংখ্যার মধ্যে বড়টি বের করার function লেখো","Prime number যাচাই করার function লেখো","Function দিয়ে বর্গক্ষেত্রের area বের করো","একই function বারবার ভিন্ন input দিয়ে call করো"]},
+{id:"arrays",no:"04",title:"Arrays",bn:"Array হলো একই type-এর অনেকগুলো মান একসাথে রাখার তালিকা। Index শুরু হয় 0 থেকে। Loop দিয়ে সহজে সব element ঘুরে দেখা, যোগ করা বা খোঁজা যায়।",examples:[
+{t:"Store & print marks",c:'#include <stdio.h>\nint main(){\n  int marks[5]={80,75,90,60,85};\n  for(int i=0;i<5;i++)\n    printf("%d ", marks[i]);\n  return 0;\n}'},
+{t:"Find largest element",c:'#include <stdio.h>\nint main(){\n  int a[5]={3,9,1,7,4}, max=a[0];\n  for(int i=1;i<5;i++)\n    if(a[i]>max) max=a[i];\n  printf("Max = %d\\n", max);\n  return 0;\n}'}],
+tasks:["Array-র সব element-এর average বের করো","Array reverse করে print করো","নির্দিষ্ট একটি সংখ্যা array-তে আছে কিনা খোঁজো","Bubble sort দিয়ে array সাজাও"]},
+{id:"strings",no:"05",title:"Strings",bn:"C-তে string মানে char-এর array, যার শেষে '\\0' (null character) থাকে। string.h-এর strlen, strcpy, strcmp দিয়ে দৈর্ঘ্য মাপা, copy করা ও তুলনা করা যায়। scanf-এর বদলে fgets ব্যবহার করা নিরাপদ।",examples:[
+{t:"Length of a string",c:'#include <stdio.h>\n#include <string.h>\nint main(){\n  char name[] = "Nafiz";\n  printf("Length = %lu\\n", strlen(name));\n  return 0;\n}'},
+{t:"Reverse a word",c:'#include <stdio.h>\n#include <string.h>\nint main(){\n  char s[]="hello";\n  int n=strlen(s);\n  for(int i=n-1;i>=0;i--)\n    printf("%c", s[i]);\n  return 0;\n}'}],
+tasks:["নিজে loop দিয়ে string-এর length বের করো (strlen ছাড়া)","একটি word palindrome কিনা যাচাই করো","দুটি string strcmp দিয়ে তুলনা করো","String-এ কয়টি vowel আছে গুনো"]},
+{id:"pointers",no:"06",title:"Pointers",bn:"Pointer হলো এমন ভেরিয়েবল যা অন্য ভেরিয়েবলের memory address ধরে রাখে। & দিয়ে address পাওয়া যায়, * দিয়ে সেই address-এর মান পাওয়া যায়। Pointer বুঝলে array, function আর dynamic memory অনেক সহজ হয়ে যায়।",examples:[
+{t:"Pointer basics",c:'#include <stdio.h>\nint main(){\n  int a = 10;\n  int *p = &a;\n  printf("Value: %d\\n", *p);\n  printf("Address: %p\\n", (void*)p);\n  return 0;\n}'},
+{t:"Swap using pointers",c:'#include <stdio.h>\nvoid swap(int *x, int *y){\n  int t=*x; *x=*y; *y=t;\n}\nint main(){\n  int a=3, b=8;\n  swap(&a,&b);\n  printf("a=%d b=%d\\n", a, b);\n  return 0;\n}'}],
+tasks:["Pointer দিয়ে একটি ভেরিয়েবলের মান বদলাও","Pointer দিয়ে array-র সব element print করো","Pointer দিয়ে দুটি সংখ্যার যোগ করো","NULL pointer কী — নিজে উদাহরণ চালিয়ে দেখো"]},
+{id:"structures",no:"07",title:"Structures",bn:"Structure দিয়ে ভিন্ন type-এর ডেটা একসাথে গুছিয়ে রাখা যায় — যেমন একজন ছাত্রের নাম, রোল আর নম্বর। Dot (.) operator দিয়ে প্রতিটি member access করা হয়।",examples:[
+{t:"Student structure",c:'#include <stdio.h>\nstruct Student{\n  char name[30];\n  int roll;\n  float marks;\n};\nint main(){\n  struct Student s1 = {"Rahim", 12, 88.5};\n  printf("%s %d %.1f\\n", s1.name, s1.roll, s1.marks);\n  return 0;\n}'},
+{t:"Array of structures",c:'#include <stdio.h>\nstruct Book{ char title[40]; int price; };\nint main(){\n  struct Book b[2]={{"C Basics",350},{"Data",420}};\n  for(int i=0;i<2;i++)\n    printf("%s - %d Tk\\n", b[i].title, b[i].price);\n  return 0;\n}'}],
+tasks:["Book নামে structure বানিয়ে ৩টি বইয়ের তথ্য রাখো","Structure দিয়ে দুজন ছাত্রের মধ্যে বেশি নম্বর পাওয়া জনকে খোঁজো","Nested structure (Date সহ) তৈরি করো","Structure pointer (->) ব্যবহারের উদাহরণ চালাও"]},
+{id:"recursion",no:"08",title:"Recursion",bn:"Recursion মানে একটি function নিজেই নিজেকে call করা। প্রতিটি recursive function-এ অবশ্যই base case থাকতে হবে, নাহলে infinite call হয়ে program crash করবে। Factorial ও Fibonacci recursion-এর ক্লাসিক উদাহরণ।",examples:[
+{t:"Factorial by recursion",c:'#include <stdio.h>\nlong fact(int n){\n  if(n<=1) return 1;\n  return n * fact(n-1);\n}\nint main(){ printf("%ld\\n", fact(5)); return 0; }'},
+{t:"Fibonacci by recursion",c:'#include <stdio.h>\nint fib(int n){\n  if(n==0) return 0;\n  if(n==1) return 1;\n  return fib(n-1)+fib(n-2);\n}\nint main(){\n  for(int i=0;i<8;i++) printf("%d ", fib(i));\n  return 0;\n}'}],
+tasks:["Recursion দিয়ে 1..n যোগফল বের করো","Recursion দিয়ে সংখ্যার digit count করো","Recursion দিয়ে string reverse করো","Base case ছাড়া কী হয় — সাবধানে পরীক্ষা করো"]},
+{id:"file",no:"09",title:"File Handling",bn:"File handling দিয়ে ডেটা স্থায়ীভাবে সংরক্ষণ করা যায়। fopen দিয়ে ফাইল খোলা হয় — 'w' write, 'r' read, 'a' append mode-এ। কাজ শেষে fclose করা জরুরি, আর ফাইল খুলতে না পারলে NULL check করতে হয়।",examples:[
+{t:"Write to a file",c:'#include <stdio.h>\nint main(){\n  FILE *f = fopen("note.txt","w");\n  if(f==NULL) return 1;\n  fprintf(f, "Hello File!\\n");\n  fclose(f);\n  printf("Written!\\n");\n  return 0;\n}'},
+{t:"Read from a file",c:'#include <stdio.h>\nint main(){\n  char line[100];\n  FILE *f = fopen("note.txt","r");\n  if(f==NULL){ printf("No file\\n"); return 1; }\n  while(fgets(line,100,f)) printf("%s", line);\n  fclose(f);\n  return 0;\n}'}],
+tasks:["নিজের নাম ও ID ফাইলে লিখে আবার পড়ে দেখাও","Append mode-এ ফাইলে নতুন লাইন যোগ করো","ফাইলে 1–10 সংখ্যা লিখে যোগফল পড়ে বের করো","ফাইল না থাকলে সুন্দর error message দেখাও"]}
+];
+var KEY='cpp_progress_v1';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+var state=load();
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function render(){
+  var chips=document.getElementById('chips');
+  chips.innerHTML='<button class="chip on" data-f="all">All Topics</button>'+TOPICS.map(function(t){return '<button class="chip" data-f="'+t.id+'">'+t.title+'</button>'}).join('');
+  chips.querySelectorAll('.chip').forEach(function(ch){ch.addEventListener('click',function(){
+    chips.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});ch.classList.add('on');
+    var f=ch.getAttribute('data-f');
+    document.querySelectorAll('.topic').forEach(function(el){el.style.display=(f==='all'||el.id==='topic-'+f)?'':'none'});
+    if(f!=='all'){var t=document.getElementById('topic-'+f);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}
+  })});
+  var main=document.getElementById('topics');
+  main.innerHTML=TOPICS.map(function(t,ti){
+    var codes=t.examples.map(function(ex){return '<div class="codecard"><div class="codehead"><b>'+ex.t+'</b><button class="copy" data-code="'+ti+'">Copy</button></div><pre>'+esc(ex.c)+'</pre></div>'}).join('');
+    var checks=t.tasks.map(function(task,i){var id=t.id+'-'+i;var done=state[id]?'checked':'';return '<label><input type="checkbox" data-task="'+id+'" '+done+'><span>'+task+'</span></label>'}).join('');
+    return '<article class="topic" id="topic-'+t.id+'"><h2><i>'+t.no+' /</i> '+t.title+'</h2><p class="bn">'+t.bn+'</p><div class="grid">'+codes+'</div><div class="check"><h3>// PRACTICE_CHECKLIST</h3>'+checks+'</div></article>'
+  }).join('');
+  main.querySelectorAll('.copy').forEach(function(btn,idx){
+    btn.addEventListener('click',function(){
+      var all=[];TOPICS.forEach(function(t){t.examples.forEach(function(e){all.push(e.c)})});
+      copyText(all[idx],btn);
+    });
+  });
+  main.querySelectorAll('input[data-task]').forEach(function(cb){cb.addEventListener('change',function(){state[cb.getAttribute('data-task')]=cb.checked;save(state);updateProgress()})});
+  updateProgress();
+}
+function copyText(text,btn){
+  function done(){btn.textContent='Copied ✓';btn.classList.add('done');showToast();setTimeout(function(){btn.textContent='Copy';btn.classList.remove('done')},1600)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){fallback()})}else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}document.body.removeChild(ta)}
+}
+function showToast(){var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1500)}
+function updateProgress(){
+  var total=0,done=0;TOPICS.forEach(function(t){t.tasks.forEach(function(_,i){total++;if(state[t.id+'-'+i])done++})});
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById('barFill').style.width=pct+'%';
+  document.getElementById('progressText').textContent=done+' / '+total+' tasks • '+pct+'%'+(pct===100?' • COMPLETE 🎉':'');
+}
+document.getElementById('resetBtn').addEventListener('click',function(){state={};save(state);render()});
+/* typing effect */
+var phrases=['C Programming Practice','Variables → Pointers','Code. Compile. Learn.','Hello, World!'];
+var pi=0,ci=0,del=false,typedEl=document.getElementById('typed');
+function tick(){
+  var word=phrases[pi];
+  typedEl.textContent=word.slice(0,ci);
+  if(!del){ci++;if(ci>word.length){del=true;setTimeout(tick,1400);return}}
+  else{ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length}}
+  setTimeout(tick,del?38:78);
+}
+render();tick();
+</script>
+</body>
+</html>
